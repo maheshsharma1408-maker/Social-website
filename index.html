@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shri Ganga Nagar Connect</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">SG</div>
+          <div>
+            <h1>Shri Ganga Nagar Connect</h1>
+            <p>Local people. Real conversations.</p>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Main navigation">
+          <button class="nav-item active" data-view="feed">Home</button>
+          <button class="nav-item" data-view="people">People</button>
+          <button class="nav-item" data-view="chat">Chat</button>
+          <button class="nav-item" data-view="ads">Advertisement</button>
+          <button class="nav-item" data-view="profile">Profile</button>
+          <button class="nav-item admin-only" data-view="admin">Admin</button>
+        </nav>
+
+        <div class="current-user-card">
+          <span class="avatar" id="currentAvatar">A</span>
+          <div>
+            <strong id="currentName">Admin</strong>
+            <small id="currentRole">Founder admin</small>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">City network</p>
+            <h2 id="viewTitle">Home</h2>
+          </div>
+          <div class="topbar-actions">
+            <button class="ghost-button" id="seedButton" type="button">Reset Demo</button>
+            <button class="primary-button" id="logoutButton" type="button">Logout</button>
+          </div>
+        </header>
+
+        <section class="login-panel" id="loginPanel">
+          <div class="login-copy">
+            <p class="eyebrow">Welcome</p>
+            <h2>Connect with social people in Shri Ganga Nagar</h2>
+            <p>Create a profile, discover local members, and start conversations with people in your city.</p>
+          </div>
+          <form class="login-form" id="loginForm">
+            <label>
+              Name
+              <input id="loginName" name="name" autocomplete="name" placeholder="Your name" required />
+            </label>
+            <label>
+              Mobile or email
+              <input id="loginContact" name="contact" autocomplete="email" placeholder="you@example.com" required />
+            </label>
+            <label>
+              City email
+              <input id="loginCityEmail" value="Created automatically at @shriganganagar.com" readonly />
+            </label>
+            <label>
+              Interest
+              <select id="loginInterest" name="interest">
+                <option>Making new friends</option>
+                <option>Business networking</option>
+                <option>Events and meetups</option>
+                <option>Local updates</option>
+                <option>Study and career</option>
+              </select>
+            </label>
+            <button class="primary-button wide" type="submit">Enter City Network</button>
+            <p class="form-note">Use name <strong>Mahesh Admin</strong> to enter as the founder admin.</p>
+          </form>
+        </section>
+
+        <div class="content-grid" id="appContent" hidden>
+          <section class="view active" id="feedView">
+            <form class="composer" id="postForm">
+              <label for="postText">Share with Shri Ganga Nagar</label>
+              <textarea id="postText" rows="4" placeholder="What is happening in the city today?"></textarea>
+              <label>
+                Add photo or video
+                <input id="postMedia" type="file" accept="image/*,video/*" />
+              </label>
+              <p class="form-note">Demo limit: 5 MB. Production uploads will use Amazon S3.</p>
+              <div class="media-preview" id="mediaPreview" hidden></div>
+              <div class="composer-actions">
+                <select id="postCategory" aria-label="Post category">
+                  <option>Local update</option>
+                  <option>Meetup</option>
+                  <option>Business</option>
+                  <option>Help needed</option>
+                </select>
+                <button class="primary-button" type="submit">Post</button>
+              </div>
+            </form>
+            <div class="feed-list" id="feedList"></div>
+          </section>
+
+          <section class="view" id="peopleView">
+            <div class="toolbar">
+              <input id="peopleSearch" placeholder="Search people, interests, or areas" />
+              <select id="interestFilter">
+                <option value="">All interests</option>
+                <option>Making new friends</option>
+                <option>Business networking</option>
+                <option>Events and meetups</option>
+                <option>Local updates</option>
+                <option>Study and career</option>
+              </select>
+            </div>
+            <div class="people-grid" id="peopleGrid"></div>
+          </section>
+
+          <section class="view" id="chatView">
+            <div class="chat-layout">
+              <div class="chat-people" id="chatPeople"></div>
+              <div class="chat-window">
+                <div class="chat-header">
+                  <span class="avatar" id="chatAvatar">R</span>
+                  <div>
+                    <strong id="chatName">Select a person</strong>
+                    <small id="chatArea">Shri Ganga Nagar</small>
+                    <small class="active-status" id="chatStatus">Active now</small>
+                  </div>
+                </div>
+                <div class="chat-share-tools" aria-label="Quick sharing tools">
+                  <button type="button" data-quick-message="thought">Thought</button>
+                  <button type="button" data-quick-message="experience">Experience</button>
+                  <button type="button" data-quick-message="video">Video idea</button>
+                </div>
+                <div class="messages" id="messages"></div>
+                <form class="message-form" id="messageForm">
+                  <input id="messageText" placeholder="Write a message" />
+                  <label class="file-button">
+                    Media
+                    <input id="messageMedia" type="file" accept="image/*,video/*" />
+                  </label>
+                  <button class="primary-button" type="submit">Send</button>
+                </form>
+              </div>
+            </div>
+          </section>
+
+          <section class="view" id="adsView">
+            <form class="composer" id="adForm">
+              <label for="adTitle">Create local advertisement</label>
+              <input id="adTitle" placeholder="Advertisement title" />
+              <textarea id="adText" rows="3" placeholder="Describe your offer, event, service, or announcement"></textarea>
+              <div class="composer-actions">
+                <select id="adCategory" aria-label="Advertisement category">
+                  <option>Local business</option>
+                  <option>Event</option>
+                  <option>Service</option>
+                  <option>Property</option>
+                  <option>Education</option>
+                </select>
+                <button class="primary-button" type="submit">Publish Ad</button>
+              </div>
+            </form>
+            <div class="ads-grid" id="adsGrid"></div>
+          </section>
+
+          <section class="view" id="profileView">
+            <form class="profile-form" id="profileForm">
+              <div class="profile-head">
+                <span class="avatar large" id="profileAvatar">A</span>
+                <div>
+                  <h3 id="profileNameHeading">Your profile</h3>
+                  <p>Shri Ganga Nagar member</p>
+                </div>
+              </div>
+              <label>
+                Profile picture
+                <input id="profilePhoto" type="file" accept="image/*" />
+              </label>
+              <p class="form-note">Demo limit: 5 MB. Production profile photos will use Amazon S3.</p>
+              <label>
+                Display name
+                <input id="profileName" required />
+              </label>
+              <label>
+                Shri Ganga Nagar email
+                <input id="profileCityEmail" readonly />
+              </label>
+              <label>
+                Area
+                <input id="profileArea" placeholder="Example: Jawahar Nagar" />
+              </label>
+              <label>
+                Interest
+                <select id="profileInterest">
+                  <option>Making new friends</option>
+                  <option>Business networking</option>
+                  <option>Events and meetups</option>
+                  <option>Local updates</option>
+                  <option>Study and career</option>
+                </select>
+              </label>
+              <label>
+                Bio
+                <textarea id="profileBio" rows="4" placeholder="A short introduction"></textarea>
+              </label>
+              <button class="primary-button" type="submit">Save Profile</button>
+            </form>
+          </section>
+
+          <section class="view" id="adminView">
+            <div class="stats-row">
+              <div class="stat"><strong id="memberCount">0</strong><span>Members</span></div>
+              <div class="stat"><strong id="postCount">0</strong><span>Posts</span></div>
+              <div class="stat"><strong id="messageCount">0</strong><span>Messages</span></div>
+              <div class="stat"><strong id="scrapCount">0</strong><span>Scraps</span></div>
+              <div class="stat"><strong id="adCount">0</strong><span>Ads</span></div>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>City email</th>
+                    <th>Area</th>
+                    <th>Interest</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="adminMembers"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
